@@ -75,19 +75,9 @@ class Home extends StatelessWidget {
                   mainAxisAlignment: index % 2 == 0
                       ? MainAxisAlignment.end
                       : MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 22),
-                    Text("View All", style: context.textTheme.titleLarge),
-                    Spacer(),
-                    CircleAvatar(
-                      backgroundColor: context.primaryColor,
-                      radius: 24,
-                      child: Icon(
-                        Icons.arrow_forward_ios,
-                        color: context.secondaryColor,
-                      ),
-                    ),
-                  ],
+                  children: index % 2 == 0
+                      ? buildEndViewAllRow(context)
+                      : buildStartViewAllRow(context),
                 ),
               ),
             ],
@@ -95,5 +85,31 @@ class Home extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> buildEndViewAllRow(BuildContext context) {
+    return [
+      SizedBox(width: 22),
+      Text("View All", style: context.textTheme.titleLarge),
+      Spacer(),
+      CircleAvatar(
+        backgroundColor: context.primaryColor,
+        radius: 24,
+        child: Icon(Icons.arrow_forward_ios, color: context.secondaryColor),
+      ),
+    ];
+  }
+
+  List<Widget> buildStartViewAllRow(BuildContext context) {
+    return [
+      CircleAvatar(
+        backgroundColor: context.primaryColor,
+        radius: 24,
+        child: Icon(Icons.arrow_back_ios, color: context.secondaryColor),
+      ),
+      Spacer(),
+      Text("View All", style: context.textTheme.titleLarge),
+      SizedBox(width: 22),
+    ];
   }
 }
