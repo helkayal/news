@@ -55,6 +55,16 @@ abstract final class AppTheme {
         fontWeight: FontWeight.w500,
         color: AppColors.grey,
       ),
+      displayMedium: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: AppColors.black,
+      ),
+      displayLarge: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: AppColors.white,
+      ),
     ),
     iconTheme: IconThemeData(size: 24, color: AppColors.black),
   );
@@ -111,6 +121,16 @@ abstract final class AppTheme {
         fontSize: 12,
         fontWeight: FontWeight.w500,
         color: AppColors.grey,
+      ),
+      displayMedium: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: AppColors.black,
+      ),
+      displayLarge: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: AppColors.white,
       ),
     ),
     iconTheme: IconThemeData(size: 24, color: AppColors.white),
