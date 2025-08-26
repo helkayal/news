@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news/ui/utils%20/app_colors.dart';
-import 'package:news/ui/utils%20/app_routes.dart';
-import 'package:news/ui/utils%20/extensions/build_context_extensions.dart';
+import 'package:news/ui/utils/app_colors.dart';
+import 'package:news/ui/utils/app_routes.dart';
+import 'package:news/ui/utils/extensions/build_context_extensions.dart';
 import 'package:news/ui/widgets/seach_textbox.dart';
 
 class AppScaffold extends StatefulWidget {
@@ -37,7 +37,7 @@ class _AppScaffoldState extends State<AppScaffold> {
               );
             },
           ),
-          title: widget.isSearch ? SearchTetxbox() : Text(widget.appBarTitle),
+          title: widget.isSearch ? SearchTextbox() : Text(widget.appBarTitle),
           actions: widget.isSearch
               ? null
               : [

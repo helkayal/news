@@ -1,87 +1,44 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:news/data/api_manager.dart';
-import 'package:news/data/model/article.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news/domain/model/source.dart';
-import 'package:news/ui/screens/news/widgets/article_details_sheet.dart';
-import 'package:news/ui/utils%20/extensions/build_context_extensions.dart';
+import 'package:news/di/get_it_modules.dart';
+import 'package:news/ui/screens/news/article_view_model.dart';
+import 'package:news/ui/widgets/article_list.dart';
 import 'package:news/ui/widgets/error_view.dart';
 import 'package:news/ui/widgets/loading_view.dart';
 
-class NewsList extends StatelessWidget {
+class NewsList extends StatefulWidget {
   final Source source;
   const NewsList({super.key, required this.source});
 
   @override
+  State<NewsList> createState() => _NewsListState();
+}
+
+class _NewsListState extends State<NewsList> {
+  late ArticlesViewModel viewModel = getIt();
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel.loadArticles(widget.source.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: ApiManager.instance.loadArticles(source.id),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return ErrorView(message: snapshot.error.toString());
-        } else if (snapshot.hasData) {
-          var articles = snapshot.data!;
-          return buildArticlesList(articles);
+    return BlocBuilder<ArticlesViewModel, ArticlesState>(
+      bloc: viewModel,
+      builder: (context, state) {
+        if (state.isLoading) {
+          return const LoadingView();
+        } else if (state.errorMessage.isNotEmpty) {
+          return ErrorView(message: state.errorMessage);
+        } else if (state.isEmpty) {
+          return ErrorView(message: "No articles available");
         } else {
-          return LoadingView();
+          return buildArticlesList(state.articles);
         }
       },
-    );
-  }
-
-  Widget buildArticlesList(List<Article> articles) {
-    return ListView.builder(
-      itemCount: articles.length,
-      itemBuilder: (context, index) =>
-          buildArticleItem(context, articles[index]),
-    );
-  }
-
-  Widget buildArticleItem(BuildContext context, Article article) {
-    return InkWell(
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-          ),
-          builder: (_) => ArticleDetailsSheet(article: article),
-        );
-      },
-      child: Container(
-        margin: EdgeInsets.all(8),
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          border: Border.all(color: context.secondaryColor),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          children: [
-            CachedNetworkImage(
-              imageUrl: article.urlToImage ?? "",
-              placeholder: (_, __) => LoadingView(),
-              errorWidget: (_, __, ___) => Icon(Icons.error),
-              height: context.height * .25,
-            ),
-            Text(article.title ?? "", style: context.textTheme.bodyMedium),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    article.author ?? "",
-                    style: context.textTheme.labelMedium,
-                  ),
-                ),
-                Text(
-                  article.publishedAt ?? "",
-                  style: context.textTheme.labelMedium,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news/ui/utils%20/extensions/build_context_extensions.dart';
+import 'package:news/ui/utils/extensions/build_context_extensions.dart';
 
 class LoadingView extends StatelessWidget {
   const LoadingView({super.key});

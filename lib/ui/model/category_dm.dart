@@ -1,4 +1,4 @@
-import 'package:news/ui/utils%20/app_assets.dart';
+import 'package:news/ui/utils/app_assets.dart';
 
 class CategoryDM {
   String id;

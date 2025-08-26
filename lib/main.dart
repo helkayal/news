@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:news/data/model/article.dart';
+import 'package:news/data/utils/hive_adapter/article_adapter.dart';
 import 'package:news/data/utils/hive_adapter/source_adapter.dart';
 import 'package:news/di/get_it_modules.dart';
 import 'package:news/ui/providers/theme_provider.dart';
 import 'package:news/ui/screens/home/home.dart';
-import 'package:news/ui/utils%20/app_theme.dart';
+import 'package:news/ui/screens/search/search_view_model.dart';
+import 'package:news/ui/utils/app_theme.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  Hive.initFlutter();
+void main() async {
+  await Hive.initFlutter();
   Hive.registerAdapter(SourceAdapter());
+  Hive.registerAdapter(ArticleAdapter());
+  await Hive.openBox<Article>("articles");
+
   configureDependcies();
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        BlocProvider<SearchViewModel>(create: (_) => SearchViewModel(getIt())),
+      ],
       child: const MyApp(),
     ),
   );

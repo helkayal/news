@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news/ui/utils%20/app_assets.dart';
+import 'package:news/ui/utils/app_assets.dart';
 
 class ThemeProvider extends ChangeNotifier {
   var themeMode = ThemeMode.dark;

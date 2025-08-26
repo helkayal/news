@@ -4,7 +4,7 @@ import 'package:news/di/get_it_modules.dart';
 import 'package:news/domain/model/source.dart';
 import 'package:news/ui/model/category_dm.dart';
 import 'package:news/ui/screens/news/news_list.dart';
-import 'package:news/ui/utils%20/extensions/build_context_extensions.dart';
+import 'package:news/ui/utils/extensions/build_context_extensions.dart';
 import 'package:news/ui/widgets/app_scaffold.dart';
 import 'package:news/ui/widgets/error_view.dart';
 import 'package:news/ui/widgets/loading_view.dart';
@@ -39,6 +39,8 @@ class _NewsState extends State<News> {
             return ErrorView(message: state.errorMessage);
           } else if (state.sources.isNotEmpty) {
             return buildTabsList(context, state.sources);
+          } else if (state.isEmpty) {
+            return ErrorView(message: "No articles available");
           } else {
             return Center(child: LoadingView());
           }

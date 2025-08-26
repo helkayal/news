@@ -53,6 +53,22 @@ class ApiManager {
     }
     return null;
   }
+
+  Future<ArticlesResponse> searchArticles(String query) async {
+    try {
+      final response = await dio.get(
+        "/everything",
+        queryParameters: {"searchIn": "title,description", "q": query},
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        return ArticlesResponse.fromJson(response.data);
+      } else {
+        throw Exception("Failed to search articles");
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
 
 class AppInterceptor extends Interceptor {

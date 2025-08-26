@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news/data/model/article.dart';
+import 'package:news/domain/model/article_entity.dart';
 import 'package:news/ui/model/category_dm.dart';
 import 'package:news/ui/screens/article/full_article.dart';
 import 'package:news/ui/screens/home/home.dart';
@@ -15,7 +15,7 @@ abstract final class AppRoutes {
   static Route news(CategoryDM category) =>
       MaterialPageRoute(builder: (_) => News(categoryDM: category));
 
-  static Route fullArticle(Article article) =>
+  static Route fullArticle(ArticleEntity article) =>
       MaterialPageRoute(builder: (_) => FullArticle(article: article));
 
   static Route get search => MaterialPageRoute(builder: (_) => SearchNews());

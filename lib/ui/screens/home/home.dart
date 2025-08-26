@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news/ui/model/category_dm.dart';
-import 'package:news/ui/utils%20/app_routes.dart';
-import 'package:news/ui/utils%20/extensions/build_context_extensions.dart';
+import 'package:news/ui/utils/app_routes.dart';
+import 'package:news/ui/utils/extensions/build_context_extensions.dart';
 import 'package:news/ui/widgets/app_scaffold.dart';
 
 class Home extends StatelessWidget {

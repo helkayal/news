@@ -8,7 +8,7 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(message);
+    // print(message);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

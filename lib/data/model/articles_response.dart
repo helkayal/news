@@ -1,33 +1,63 @@
+// import 'article.dart';
+
+// class ArticlesResponse {
+//   ArticlesResponse({
+//       this.status,
+//       this.totalResults,
+//       this.articles,});
+
+//   ArticlesResponse.fromJson(dynamic json) {
+//     status = json['status'];
+//     totalResults = json['totalResults'];
+//     if (json['articles'] != null) {
+//       articles = [];
+//       json['articles'].forEach((v) {
+//         articles?.add(Article.fromJson(v));
+//       });
+//     }
+//   }
+//   String? status;
+//   num? totalResults;
+//   List<Article>? articles;
+
+//   Map<String, dynamic> toJson() {
+//     final map = <String, dynamic>{};
+//     map['status'] = status;
+//     map['totalResults'] = totalResults;
+//     if (articles != null) {
+//       map['articles'] = articles?.map((v) => v.toJson()).toList();
+//     }
+//     return map;
+//   }
+
+// }
+
 import 'article.dart';
 
 class ArticlesResponse {
-  ArticlesResponse({
-      this.status, 
-      this.totalResults, 
-      this.articles,});
+  List<Article>? articles;
+  String? status;
+  int? totalResults;
 
-  ArticlesResponse.fromJson(dynamic json) {
+  ArticlesResponse({this.articles, this.status, this.totalResults});
+
+  ArticlesResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     totalResults = json['totalResults'];
     if (json['articles'] != null) {
-      articles = [];
-      json['articles'].forEach((v) {
-        articles?.add(Article.fromJson(v));
-      });
+      articles = (json['articles'] as List)
+          .map((e) => Article.fromJson(e))
+          .toList();
     }
   }
-  String? status;
-  num? totalResults;
-  List<Article>? articles;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['status'] = status;
     map['totalResults'] = totalResults;
     if (articles != null) {
-      map['articles'] = articles?.map((v) => v.toJson()).toList();
+      map['articles'] = articles!.map((e) => e.toJson()).toList();
     }
     return map;
   }
-
 }
